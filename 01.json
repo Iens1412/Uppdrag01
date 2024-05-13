@@ -1,0 +1,28 @@
+{
+    "game":[
+        {
+            "id":"1",
+            "name":"Bälte",
+            "year":"12015",
+            "image":"https://picsum.photos/200/300",
+            "text":"Lorem ipsum Räksmörgås",
+            "effect":"flash"
+        },
+        {
+            "id":"2",
+            "name":"Yxa",
+            "year":"1015",
+            "image":"https://picsum.photos/200/300",
+            "text":"ÅÄÖ åäö '\\'",
+            "effect":"star"
+        },
+        {
+            "id":"3",
+            "name":"Sko",
+            "year":"15",
+            "image":"https://picsum.photos/200/300",
+            "text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ÅåÄäÖö Nam at malesuada magna. In sit amet magna vestibulum, aliquam dui facilisis, congue leo. Donec congue sem tellus, nec pellentesque elit convallis condimentum. Quisque pretium diam sed ipsum consequat, eget scelerisque quam dignissim. Suspendisse eu faucibus lectus. Cras rutrum nec purus a finibus. Proin nibh magna, cursus at dignissim ut, interdum eu tortor. Morbi accumsan feugiat diam ac gravida. Etiam rhoncus enim eget nunc blandit eleifend vel sed lectus. Morbi sapien tellus, vulputate sit amet blandit vitae, pretium nec leo. Nunc at orci quis nulla luctus ultricies. ",
+            "effect":"explosion"
+        },
+    ]
+}
