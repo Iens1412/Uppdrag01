@@ -2,13 +2,11 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
 
 func _on_ladda_pressed():        
 	read_file("1")
@@ -53,8 +51,26 @@ func read_file(id):
 					var effect = game["effect"]
 					$"Bält".text = "Name: " + str(name) + "\nYear: " + str(year) + "\nimage: " + str(image) + "\ntext: " + str(text) + "\neffect: " + str(effect)                                                         
 					
+					load_image(image)
 					return           
 	
 	else:                    
 		
 		print("Kunde inte öppna filen.")
+
+
+func load_image(image_url):        
+	var image_texture = ImageTexture.new()        
+	var http_request = HTTPRequest.new()    
+	var headers = []  # No headers needed for this request    
+	http_request.request(image_url, headers, HTTPClient.METHOD_GET) # Pass an empty array for headers    
+	http_request.connect("request_completed", _on_request_completed)
+	add_child(http_request)
+		
+func _on_request_completed(result, response_code, headers, body):    
+	if result == HTTPRequest.RESULT_SUCCESS and response_code == 200:        
+		var image_texture = ImageTexture.new()        
+		image_texture.load_png_from_buffer(body)        
+		$Image.texture = image_texture
+	else:        
+		print("HTTP request failed with response code:", response_code)
