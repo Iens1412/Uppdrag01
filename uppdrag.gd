@@ -59,18 +59,28 @@ func read_file(id):
 		print("Kunde inte öppna filen.")
 
 
-func load_image(image_url):        
+func load_image(image_url):
+	var image_src = image_url        
 	var image_texture = ImageTexture.new()        
-	var http_request = HTTPRequest.new()    
-	var headers = []  # No headers needed for this request    
-	http_request.request(image_url, headers, HTTPClient.METHOD_GET) # Pass an empty array for headers    
-	http_request.connect("request_completed", _on_request_completed)
+	var http_request = HTTPRequest.new()
 	add_child(http_request)
+	http_request.request_completed.connect(self._http_request_completed)
+	
+	var error = http_request.request(image_src)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
 		
-func _on_request_completed(result, response_code, headers, body):    
-	if result == HTTPRequest.RESULT_SUCCESS and response_code == 200:        
-		var image_texture = ImageTexture.new()        
-		image_texture.load_png_from_buffer(body)        
-		$Image.texture = image_texture
-	else:        
-		print("HTTP request failed with response code:", response_code)
+
+func _http_request_completed(result, response_code, headers, body):
+	if result != HTTPRequest.RESULT_SUCCESS:
+		push_error("Image couldn't be downloaded. Try a different image.")
+
+	var image = Image.new()
+	var error = image.load_png_from_buffer(body)
+	if error != OK:
+		push_error("Couldn't load the image.")
+
+	var texture = ImageTexture.create_from_image(image)
+
+	# Display the image in a TextureRect node.
+	$Image.texture = texture
